@@ -32,11 +32,24 @@
 # 你⽆法返回 2 号加油站，因为返程需要消耗 4 升汽油，但是你的油箱只有 3 升汽油。
 # 因此，⽆论怎样，你都不可能绕环路⾏驶⼀周。
 
-# 主要思路：排序取反，关键是排序算法能用api吗？
+# 主要思路：1.暴力解法，就循环遍历 2.贪心算法：明显汽车第一站只能从油量大于消耗的加油站开始，由说明可知，gas<=cost，这样才会有唯一解或无解，在这条件下，通过求gas-cost的差分，让连续子序列差分和最大（局部最优，汽油盈余最多，整体最优），则序列起点即是起点加油站。
 
-import numpy as np
-from random import randint
-
-A = np.random.randint(-100, 100, size=10)
-K = randint(1, 10)
-print(A, K)
+# import numpy as np
+# list = [1, 2, 3, 4, 5, 6]
+# gas = np.random.choice(list, 6, replace=False)
+# cost = np.random.choice(list, 6, replace=False)
+# gas = [1, 2, 3, 4, 5]
+# cost = [3, 4, 5, 1, 2]
+gas = [4, 2, 5, 1, 3, 6]
+cost = [1, 5, 2, 3, 6, 4]
+print("gas =", gas)
+print("cost =", cost)
+diff = [0] * len(gas)
+diff2 = [0] * len(gas)
+max = 0
+# 差分数组
+for i in range(len(gas)):
+    diff[i] = gas[i] - cost[i]
+print("diff =", diff)
+# 求最大子序列和，还要求首尾相接
+# for k in range(len(diff)):

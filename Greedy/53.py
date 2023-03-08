@@ -11,7 +11,7 @@
 
 import numpy as np
 
-nums = np.random.randint(-20, 20, size=10)
+nums = np.random.randint(-10, 10, size=6)
 print(nums)
 # nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 count = 0
