@@ -16,25 +16,43 @@
 
 # 主要思路：贪⼼算法，让峰值尽可能的保持峰值，然后删除单⼀坡度上的节点，计算两数差值然后比较，关键在于如何处理开头和末尾，以及中间值的保存与计算。(不考虑空列表)
 
-import numpy as np
+# import numpy as np
 
-list = np.random.choice(30, 8, replace=False)
-pre_diff, cur_diff = 0, 0
-res = 1
-for index, num in enumerate(list):
-    print(num, end=" ")
-    if index == 0:
-        pre_num = num
-    else:
-        cur_diff = num - pre_num
-        pre_num = num
-        # print("pre_diff = %d" % pre_diff, end=" ")
-        # print("cur_diff = %d," % cur_diff, end=" ")
-        if (pre_diff > 0 and cur_diff > 0) or (pre_diff < 0 and cur_diff < 0):
-            # print("no", end=" ")
-            pre_diff = cur_diff + pre_diff
-        else:
-            # print("yes", end=" ")
-            res += 1
-            pre_diff = cur_diff
-print(res)
+# nums = np.random.choice(30, 8, replace=False)
+
+
+class Solution(object):
+
+    def wiggleMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # 1.求正负贪心算法
+        # pre_diff, cur_diff = 0, 0
+        # res = 1
+        # pre_num = nums[0]
+        # for i, num in enumerate(nums):
+        #     # print(num, end=" ")
+        #     cur_diff = num - pre_num
+        #     pre_num = num
+        #     # print("pre_diff = %d" % pre_diff, "cur_diff = %d," % cur_diff)
+        #     if (pre_diff > 0 and cur_diff >= 0) or (pre_diff < 0 and cur_diff <= 0) or (pre_diff == 0 and cur_diff == 0):
+        #         # print("no")
+        #         pre_diff = cur_diff + pre_diff
+        #     else:
+        #         # print("yes")
+        #         res += 1
+        #         pre_diff = cur_diff
+        # return res
+        # 2.不求正负贪心算法
+        down = 1
+        up = 1
+        length = len(nums)
+        for i in range(1, length):
+            if nums[i] > nums[i - 1]:
+                up = down + 1
+            elif nums[i] < nums[i - 1]:
+                down = up + 1
+        res = 0 if length == 0 else max(down, up)
+        return res

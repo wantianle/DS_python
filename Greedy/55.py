@@ -17,13 +17,20 @@ import numpy as np
 
 nums = np.random.randint(0, 5, size=8)
 print(nums)
-# nums = [0]
-# nums = [3, 2, 1, 0, 4]
 # 这里关键是python不能设置循环下标从1开始，所以开始空跳一步，cur=1，接着获取当前格子步数，再逐格对比，多则替换，少则不变，并且每一格减一步，最终输出在最终格的剩余步数，小于0则不能
-cur = 1
-for i, num in enumerate(nums):
-    cur -= 1
-    if cur <= num and cur >= 0:
-        cur = num
-    # print(cur)
-print(cur >= 0)
+
+
+class Solution(object):
+
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        cur = 1
+        for i, num in enumerate(nums):
+            cur -= 1
+            if cur <= num and cur >= 0:
+                cur = num
+            # print(cur)
+        return cur >= 0

@@ -20,9 +20,18 @@ import numpy as np
 
 nums = np.random.randint(5, 40, size=10)
 print(nums)
+
+
 # nums = [1, 2, 3, 4, 5]
-count = 0
-for i, num in enumerate(nums):
-    if i < len(nums) - 1 and nums[i + 1] > num:
-        count += nums[i + 1] - num
-print(count)
+class Solution(object):
+
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        count = 0
+        for i, price in enumerate(prices):
+            if i < len(prices) - 1 and prices[i + 1] > price:
+                count += prices[i + 1] - price
+        return count
