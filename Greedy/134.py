@@ -37,6 +37,7 @@
 # import numpy as np
 
 # 数据输入区域
+
 # list = [1, 2, 3, 4, 5, 6]
 # gas = np.random.choice(list, 6, replace=False)
 # cost = np.random.choice(list, 6, replace=False)

@@ -14,6 +14,7 @@ import numpy as np
 nums = np.random.randint(-5, -1, size=5)
 print(nums)
 # nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+print(nums)
 
 
 class Solution:
