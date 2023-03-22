@@ -10,7 +10,6 @@
 
 # 链表结点
 class ListNode:
-
     def __init__(self, val):  # 结点只能初始化值，还需手动设置next指针
         self.val = val
         self.next = None
@@ -18,15 +17,14 @@ class ListNode:
 
 # 带头结点的链表实现，与不带头结点的相比，就是在遍历时处理空链表与非空链表的首结点操作保持一致。
 class LinkedList_HEAD:
-
-    # 1.初始化：带头结点和头指针的链表创建，头指针指向头结点，头结点不存储数据，
+    # 1.初始化：带头结点和头指针的链表创建，头指针指向头结点，头结点不存储数据
     def __init__(self):
         self.head = ListNode(None)
-        self.head.next = None
+        self.head.next = None  # 其实结点那已经初始化，这里可以不写
 
     # 2.遍历输出：展示出链式结构，返回格式化字符串，这个类里面没有专门写遍历的方法，是因为遍历不能写死，每一个使用遍历的方法在遍历中都有不同的操作
     def __repr__(self) -> str:
-        output = "*head->HNode"  # 头指针指向头结点
+        output = "*head=HNode"  # 头指针指向头结点
         temp = self.head.next  # 遍历指针，因为头结点无数据不输出，所有要让temp初始指向第一个结点，即头结点后的首结点
         while temp:  # 遍历指针从首结点循环到尾结点，直到None停止
             output += f"->{temp.val}"
@@ -47,6 +45,7 @@ class LinkedList_HEAD:
         while temp.next:  # 当temp.next指向None时，temp遍历指针即指向尾结点，令temp.next = node，完成尾插
             temp = temp.next
         temp.next = node
+        # node.next = None
 
     # 5.查询长度：返回链表长度count
     def query_length(self):
@@ -68,7 +67,7 @@ class LinkedList_HEAD:
                 index += 1
             return temp, temp.val
         else:
-            return None, None  # 为了方便接口使用，设置双None返回值
+            return None, None  # 为了方便接口判空使用，返回None元组
 
     # 7.查询元素：返回给定元素结点的位置列表temp_list
     def query_elem(self, val):
@@ -95,6 +94,7 @@ class LinkedList_HEAD:
         elif site == 1:
             self.head_insert(val)
         else:
+            print("Insert failed.")
             return False
         return True
 
@@ -112,6 +112,7 @@ class LinkedList_HEAD:
         elif site == 1:
             self.head = self.head.next
         else:
+            print("Delete failed.")
             return False
         return True
 
@@ -119,6 +120,7 @@ class LinkedList_HEAD:
     def delete_elem(self, val):
         temp_list = self.query_elem(val)
         if not temp_list:
+            print("Delete failed.")
             return False
         for item in temp_list:
             self.delete_site(item)
@@ -132,6 +134,7 @@ class LinkedList_HEAD:
             temp.val = val
             return True
         else:
+            print("Update failed.")
             return False
 
     # 12.链表删除：删除链表所有元素，返回bool
@@ -142,19 +145,18 @@ class LinkedList_HEAD:
 
 # 不带头结点的链表实现
 class LinkedList:
-
     # 1.初始化：不带头结点，只有头指针的链表创建，头指针head直接指向首结点，即head = node
     def __init__(self):
         self.head = None
 
     # 2.遍历输出：展示出链式结构，返回格式化字符串，这个类里面没有专门写遍历的方法，是因为遍历不能写死，每一个使用遍历的方法在遍历中都有不同的操作
     def __repr__(self) -> str:
-        output = "*head"  # 头指针
+        output = "*head="  # 头指针
         temp = self.head  # 遍历指针
         while temp:  # 遍历指针从首结点循环到尾结点，直到None停止
-            output += f"->{temp.val}"  # 输出链式连接和结点数据，数据格式化映射
+            output += f"{temp.val}->"  # 输出链式连接和结点数据，数据格式化映射
             temp = temp.next
-        output += "->None"
+        output += "None"
         return output  # __repr__方法重写显示类属性或其他信息
 
     # 3.头插法：在链表头部插入元素
@@ -168,11 +170,12 @@ class LinkedList:
         node = ListNode(val)
         temp = self.head  # 尾插法需要找到尾结点，将新结点接到尾结点之后，所以需要个遍历指针
         if not temp:
-            self.head = node  # 没有头结点，因此头指针指向None，没有p.next，需要判空单独使头指针指向node，令head = node
+            self.head = node  # 没有头结点，因此头指针指向None，没有temp.next，需要判空单独使头指针指向node，令head = node
         else:
-            while temp.next:  # 当p.next指向None时，p遍历指针即指向尾结点，令p.next = node，完成尾插
+            while temp.next:  # 当temp.next指向None时，temp遍历指针即指向尾结点，令temp.next = node，完成尾插
                 temp = temp.next
             temp.next = node
+            # node.next = None
 
     # 5.查询长度：返回链表长度count
     def query_length(self):
@@ -221,6 +224,7 @@ class LinkedList:
         elif site == 1:
             self.head_insert(val)
         else:
+            print("Insert failed.")
             return False
         return True
 
@@ -238,6 +242,7 @@ class LinkedList:
         elif site == 1:
             self.head = self.head.next
         else:
+            print("Delete failed.")
             return False
         return True
 
@@ -245,6 +250,7 @@ class LinkedList:
     def delete_elem(self, val):
         temp_list = self.query_elem(val)
         if not temp_list:
+            print("Delete failed.")
             return False
         for item in temp_list:
             self.delete_site(item)
@@ -258,6 +264,7 @@ class LinkedList:
             temp.val = val
             return True
         else:
+            print("Update failed.")
             return False
 
     # 12.链表删除：删除链表所有元素，返回bool
@@ -275,6 +282,7 @@ class LinkedList:
 # def reverse_print(self):
 
 """
+
 
 if __name__ == '__main__':
     # list = LinkedList_HEAD()
